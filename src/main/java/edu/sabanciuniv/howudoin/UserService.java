@@ -14,11 +14,24 @@ public class UserService {
 
     public String registerUser(User user) {
         // Here you would typically hash the password and save the user
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new IllegalArgumentException("User with this email already exists");
+        }
         user.setPassword(hashPassword(user.getPassword())); // Hashing the password
         userRepository.save(user); // Save user to the database
 
         // Generate JWT token for the user after registration
         return jwtTokenUtil.generateToken(user.getName()); // Assuming User has a getUsername() method
+    }
+
+    public User loginUser(String email, String password) {
+        User user = userRepository.findByEmail(email); // Find user by email
+
+        // Check if user exists and if the passwords match
+        if (user == null || !user.getPassword().equals(hashPassword(password))) {
+            throw new IllegalArgumentException("Invalid email or password");
+        }
+        return user; // Return user if authentication is successful
     }
 
     private String hashPassword(String password) {
