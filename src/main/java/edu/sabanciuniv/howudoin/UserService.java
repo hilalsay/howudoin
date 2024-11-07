@@ -12,6 +12,10 @@ public class UserService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil; // Dependency injection of JwtTokenUtil
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+
     public String registerUser(User user) {
         // Here you would typically hash the password and save the user
         if (userRepository.findByEmail(user.getEmail()) != null) {
@@ -28,17 +32,13 @@ public class UserService {
         User user = userRepository.findByEmail(email); // Find user by email
 
         // Check if user exists and if the passwords match
-        if (user == null || !user.getPassword().equals(hashPassword(password))) {
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("Invalid email or password");
         }
         return user; // Return user if authentication is successful
     }
 
-    private String hashPassword(String password) {
-        // Implement password hashing logic here (e.g., BCrypt)
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
-    }
+
 
 
 }
