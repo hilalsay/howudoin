@@ -21,7 +21,7 @@ public class UserService {
         if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new IllegalArgumentException("User with this email already exists");
         }
-        user.setPassword(hashPassword(user.getPassword())); // Hashing the password
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // Hashing the password
         userRepository.save(user); // Save user to the database
 
         // Generate JWT token for the user after registration
