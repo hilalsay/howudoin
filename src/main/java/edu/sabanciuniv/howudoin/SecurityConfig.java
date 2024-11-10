@@ -15,7 +15,9 @@ public class SecurityConfig {
         http
                 .csrf().disable() // Disable CSRF for development (not recommended for production)
                 .authorizeRequests()
-                .anyRequest().permitAll(); // Allow all requests without authentication
+                .anyRequest().authenticated() // Allow all requests without authentication
+                .and()
+                .httpBasic();
 
         return http.build();
     }

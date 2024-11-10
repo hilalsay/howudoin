@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtTokenUtil { // Renamed class to JwtTokenUtil
 
-    private String SECRET_KEY = "your_secret_key";
+    private String SECRET_KEY = "mTqlVaJbxdY7Dun0w4Is31mnIxOQZLfQT5gPrIH9Aio=";
 
     public String generateToken(String username) {
         return Jwts.builder()
