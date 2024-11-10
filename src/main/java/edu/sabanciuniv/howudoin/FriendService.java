@@ -13,6 +13,11 @@ public class FriendService {
     }
 
     public String sendFriendRequest(String senderEmail, String receiverEmail) {
+        // Check if the sender is trying to send a request to themselves
+        if (senderEmail.equals(receiverEmail)) {
+            return "You cannot send a friend request to yourself.";
+        }
+
         User sender = userRepository.findByEmail(senderEmail);
         if (sender == null) {
             throw new IllegalArgumentException("Sender not found");

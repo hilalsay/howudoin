@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/api/users") // Base URL for user-related endpoints
 public class UserController {
 
     @Autowired
