@@ -8,18 +8,22 @@ public class User {
     @Id
     private String id;
     private String name;
+    private String lastname;
     private String email;
     private String password; // Store hashed password
+    private String salt;
 
     // Default constructor
     public User() {}
 
     // Parameterized constructor
-    public User(String id, String name, String email, String password) {
+    public User(String id, String name, String lastname, String email, String password) {
         this.id = id;
         this.name = name;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.salt = salt;
     }
 
     // Getters and Setters
@@ -39,6 +43,14 @@ public class User {
         this.name = name;
     }
 
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -53,5 +65,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name and lastname ='" + name + " " + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

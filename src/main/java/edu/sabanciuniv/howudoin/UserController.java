@@ -19,9 +19,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<String> loginUser(@RequestBody User user) {
         try {
-            userService.loginUser(email, password); // Attempt to log in
+            userService.loginUser(user.getEmail(), user.getPassword()); // Attempt to log in
             return ResponseEntity.ok("Login successful!");
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
