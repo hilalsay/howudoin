@@ -1,5 +1,7 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.service;
 
+import edu.sabanciuniv.howudoin.model.User;
+import edu.sabanciuniv.howudoin.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import java.util.*;
 

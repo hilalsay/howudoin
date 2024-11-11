@@ -1,5 +1,7 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.controller;
 
+import edu.sabanciuniv.howudoin.model.FriendRequestDto;
+import edu.sabanciuniv.howudoin.service.FriendService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

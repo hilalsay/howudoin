@@ -1,8 +1,11 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.controller;
 
 //import edu.sabanciuniv.howudoin.model.Group;
 //import edu.sabanciuniv.howudoin.model.GroupMessage;
 //import edu.sabanciuniv.howudoin.service.GroupService;
+import edu.sabanciuniv.howudoin.model.Group;
+import edu.sabanciuniv.howudoin.model.GroupMessage;
+import edu.sabanciuniv.howudoin.service.GroupService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

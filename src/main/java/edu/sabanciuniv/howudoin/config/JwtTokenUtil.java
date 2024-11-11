@@ -1,8 +1,8 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.config;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.Claims;
+
 import java.util.Date;
 
 import org.springframework.stereotype.Component;

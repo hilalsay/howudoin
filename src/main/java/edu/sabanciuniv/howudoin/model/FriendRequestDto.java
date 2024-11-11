@@ -1,4 +1,4 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.model;
 
 public class FriendRequestDto {
     private String senderEmail;

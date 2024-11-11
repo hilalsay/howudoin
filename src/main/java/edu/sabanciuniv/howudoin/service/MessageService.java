@@ -1,7 +1,9 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.service;
 
 //import edu.sabanciuniv.howudoin.model.Message;
 //import edu.sabanciuniv.howudoin.repository.MessageRepository;
+import edu.sabanciuniv.howudoin.model.Message;
+import edu.sabanciuniv.howudoin.repository.MessageRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

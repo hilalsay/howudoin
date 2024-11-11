@@ -1,9 +1,12 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.service;
 
 //import edu.sabanciuniv.howudoin.model.Group;
 //import edu.sabanciuniv.howudoin.model.GroupMessage;
 //import edu.sabanciuniv.howudoin.repository.GroupRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.sabanciuniv.howudoin.model.Group;
+import edu.sabanciuniv.howudoin.model.GroupMessage;
+import edu.sabanciuniv.howudoin.repository.GroupRepository;
+import edu.sabanciuniv.howudoin.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

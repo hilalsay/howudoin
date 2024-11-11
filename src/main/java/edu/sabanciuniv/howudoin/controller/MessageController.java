@@ -1,7 +1,10 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.controller;
 
 //import edu.sabanciuniv.howudoin.model.Message;
 //import edu.sabanciuniv.howudoin.service.MessageService;
+import edu.sabanciuniv.howudoin.model.Message;
+import edu.sabanciuniv.howudoin.model.MessageDto;
+import edu.sabanciuniv.howudoin.service.MessageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,5 +1,8 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.service;
 
+import edu.sabanciuniv.howudoin.config.JwtTokenUtil;
+import edu.sabanciuniv.howudoin.model.User;
+import edu.sabanciuniv.howudoin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

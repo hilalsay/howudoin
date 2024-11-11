@@ -1,4 +1,4 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.config;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

@@ -1,4 +1,4 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

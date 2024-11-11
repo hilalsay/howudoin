@@ -1,5 +1,7 @@
-package edu.sabanciuniv.howudoin;
+package edu.sabanciuniv.howudoin.controller;
 
+import edu.sabanciuniv.howudoin.model.User;
+import edu.sabanciuniv.howudoin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
