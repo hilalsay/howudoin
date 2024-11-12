@@ -39,15 +39,18 @@ public class UserService {
         return jwtTokenUtil.generateToken(user.getEmail());
     }
 
-    public User loginUser(String email, String password) {
+    public String loginUser(String email, String password) {
         User user = userRepository.findByEmail(email); // Find user by email
 
         // Check if user exists and if the passwords match
         if (user == null || !isPasswordCorrect(password, user.getPassword(), user.getSalt())) {
             throw new IllegalArgumentException("Invalid email or password");
         }
-        return user; // Return user if authentication is successful
+
+        // Generate JWT token for the authenticated user
+        return jwtTokenUtil.generateToken(user.getEmail());
     }
+
 
     private String generateSalt() {
         // Generate a secure random salt
