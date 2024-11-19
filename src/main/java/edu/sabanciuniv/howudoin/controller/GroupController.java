@@ -1,12 +1,12 @@
 package edu.sabanciuniv.howudoin.controller;
 
-//import edu.sabanciuniv.howudoin.model.Group;
-//import edu.sabanciuniv.howudoin.model.GroupMessage;
-//import edu.sabanciuniv.howudoin.service.GroupService;
+
 import edu.sabanciuniv.howudoin.model.Group;
 import edu.sabanciuniv.howudoin.model.GroupMessage;
+import edu.sabanciuniv.howudoin.model.User;
 import edu.sabanciuniv.howudoin.service.GroupService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,20 +27,36 @@ public class GroupController {
         Group createdGroup = groupService.createGroup(group.getName(), group.getMembers());
         return ResponseEntity.ok(createdGroup);
     }
-
-    // Endpoint to add a member to an existing group
     @PostMapping("/{groupId}/add-member")
-    public ResponseEntity<String> addMember(@PathVariable String groupId, @RequestParam String memberEmail) {
+    public ResponseEntity<String> addMember(@PathVariable String groupId, @RequestBody String memberEmail) {
         groupService.addMember(groupId, memberEmail);
-        return ResponseEntity.ok("Member added to group.");
+        return ResponseEntity.ok("User added to the group.");
     }
 
     // Endpoint to send a message to a group
     @PostMapping("/{groupId}/send")
-    public ResponseEntity<String> sendMessage(@PathVariable String groupId, @RequestParam String senderEmail, @RequestParam String content) {
+    public ResponseEntity<String> sendMessage(@PathVariable String groupId, @RequestParam String content) {
+        // Extract the logged-in user's email from the JWT token
+        String senderEmail = extractAuthenticatedUserEmail();
+
+        // Pass the extracted sender email along with the group ID and content to the service
         groupService.sendMessage(groupId, senderEmail, content);
         return ResponseEntity.ok("Message sent to group.");
     }
+
+    // Utility method to extract authenticated user's email
+    private String extractAuthenticatedUserEmail() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof org.springframework.security.core.userdetails.User) {
+            return ((org.springframework.security.core.userdetails.User) principal).getUsername();
+        } else if (principal instanceof String) {
+            return (String) principal;
+        } else {
+            throw new RuntimeException("Unable to extract user email from security context");
+        }
+    }
+
 
     // Endpoint to retrieve group message history
     @GetMapping("/{groupId}/messages")

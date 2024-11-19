@@ -22,9 +22,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         try {
-            userService.loginUser(user.getEmail(), user.getPassword()); // Attempt to log in
-            return ResponseEntity.ok("Login successful!");
+            // Call the service to log in the user and get the JWT token
+            String jwtToken = userService.loginUser(user.getEmail(), user.getPassword());
+            return ResponseEntity.ok(jwtToken); // Send the token back in the response
         } catch (IllegalArgumentException ex) {
+            // If login fails, return a BAD_REQUEST with the error message
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }

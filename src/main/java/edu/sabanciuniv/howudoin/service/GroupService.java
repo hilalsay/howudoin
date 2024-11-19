@@ -1,8 +1,5 @@
 package edu.sabanciuniv.howudoin.service;
 
-//import edu.sabanciuniv.howudoin.model.Group;
-//import edu.sabanciuniv.howudoin.model.GroupMessage;
-//import edu.sabanciuniv.howudoin.repository.GroupRepository;
 import edu.sabanciuniv.howudoin.model.Group;
 import edu.sabanciuniv.howudoin.model.GroupMessage;
 import edu.sabanciuniv.howudoin.repository.GroupRepository;
@@ -19,7 +16,6 @@ public class GroupService {
     private final UserRepository userRepository;
 
 
-    // Constructor injection for both repositories
     public GroupService(GroupRepository groupRepository, UserRepository userRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;

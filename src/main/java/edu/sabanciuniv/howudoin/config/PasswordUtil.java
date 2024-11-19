@@ -8,14 +8,12 @@ import javax.crypto.spec.PBEKeySpec;
 
 public class PasswordUtil {
 
-    // Length of the salt and hash
+
     private static final int SALT_LENGTH = 16;
     private static final int HASH_LENGTH = 256; // 256 bits, 32 bytes
 
-    // Number of iterations for hashing, the higher, the slower
     private static final int ITERATIONS = 10000;
 
-    // Hash the password with a salt
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
         byte[] salt = generateSalt();
         byte[] hashedPassword = hashPasswordWithSalt(password, salt);

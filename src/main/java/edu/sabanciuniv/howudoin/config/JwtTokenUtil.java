@@ -8,7 +8,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JwtTokenUtil { // Renamed class to JwtTokenUtil
+public class JwtTokenUtil {
 
     private String SECRET_KEY = "mTqlVaJbxdY7Dun0w4Is31mnIxOQZLfQT5gPrIH9Aio=";
 

@@ -17,10 +17,10 @@ import java.util.Base64;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository; // Dependency injection of UserRepository
+    private UserRepository userRepository;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil; // Dependency injection of JwtTokenUtil
+    private JwtTokenUtil jwtTokenUtil;
 
     public String registerUser(User user) {
         // Check if user already exists

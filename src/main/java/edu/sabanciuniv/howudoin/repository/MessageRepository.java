@@ -1,6 +1,6 @@
 package edu.sabanciuniv.howudoin.repository;
 
-//import edu.sabanciuniv.howudoin.model.Message;
+
 import edu.sabanciuniv.howudoin.model.Message;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
