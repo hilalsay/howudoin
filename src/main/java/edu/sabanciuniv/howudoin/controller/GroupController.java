@@ -24,11 +24,13 @@ public class GroupController {
     // Endpoint to create a new group
     @PostMapping("/create")
     public ResponseEntity<Group> createGroup(@RequestBody Group group) {
+        String senderEmail = extractAuthenticatedUserEmail();
+        group.getMembers().add(senderEmail);
         Group createdGroup = groupService.createGroup(group.getName(), group.getMembers());
         return ResponseEntity.ok(createdGroup);
     }
     @PostMapping("/{groupId}/add-member")
-    public ResponseEntity<String> addMember(@PathVariable String groupId, @RequestBody String memberEmail) {
+    public ResponseEntity<String> addMember(@PathVariable String groupId, @RequestParam String memberEmail) {
         groupService.addMember(groupId, memberEmail);
         return ResponseEntity.ok("User added to the group.");
     }
