@@ -7,15 +7,29 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final JwtFilter jwtFilter;
 
     public SecurityConfig(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
+    }
+
+    // Configure CORS
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**") // Allow CORS for all endpoints
+                .allowedOrigins("http://localhost:19006") // Replace with your frontend URL
+                .allowedOrigins("http://localhost:8081") // Replace with your frontend URL
+                .allowedOrigins("http://10.0.2.2:8081")
+                .allowedMethods("GET", "POST", "PUT", "DELETE","*") // Allowed HTTP methods
+                .allowedHeaders("*") // Allow all headers
+                .allowCredentials(true); // Allow credentials (cookies, etc.)
     }
 
     @Bean
@@ -33,4 +47,3 @@ public class SecurityConfig {
         return http.build();
     }
 }
-
