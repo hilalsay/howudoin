@@ -68,6 +68,13 @@ public class FriendController {
         List<String> friends = friendService.getFriends(userEmail);
         return ResponseEntity.ok(friends);
     }
+    @GetMapping("/requests")
+    public ResponseEntity<List<FriendRequestDto>> getFriendRequests() {
+        // Extract the authenticated user's email from the JWT token
+        String receiverEmail = extractAuthenticatedUserEmail();
+        List<FriendRequestDto> requests = friendService.getAllFriendRequests(receiverEmail);
+        return ResponseEntity.ok(requests);
+    }
 
     private String extractAuthenticatedUserEmail() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
