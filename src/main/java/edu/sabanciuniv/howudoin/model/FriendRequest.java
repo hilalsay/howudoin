@@ -7,6 +7,16 @@ public class FriendRequest {
     private String receiverEmail; // ID of the user receiving the request
     private String status; // pending, accepted, rejected
 
+    public FriendRequest(String senderEmail, String receiverEmail, String status) {
+        this.senderEmail = senderEmail;
+        this.receiverEmail = receiverEmail;
+        this.status = status; // Set the status (e.g., "PENDING")
+    }
+
+    public FriendRequest() {
+
+    }
+
     // Getter and Setter for id
     public String getId() {
         return id;
@@ -21,17 +31,9 @@ public class FriendRequest {
         return senderEmail;
     }
 
-    public void setsenderEmail(String senderEmail) {
-        this.senderEmail = senderEmail;
-    }
-
     // Getter and Setter for receiverEmail
     public String getReceiverEmail() {
         return receiverEmail;
-    }
-
-    public void setreceiverEmail(String receiverEmail) {
-        this.receiverEmail = receiverEmail;
     }
 
     // Getter and Setter for status
@@ -41,5 +43,13 @@ public class FriendRequest {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
     }
 }

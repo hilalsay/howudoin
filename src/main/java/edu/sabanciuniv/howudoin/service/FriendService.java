@@ -41,18 +41,34 @@ public class FriendService {
         }
 
         // Check if a friend request is already sent
-        if (receiver.getFriendRequests().contains(senderEmail)) {
+        boolean requestAlreadySent = receiver.getFriendRequests().stream()
+                .anyMatch(request -> request.getSenderEmail().equals(senderEmail));
+        if (requestAlreadySent) {
             return "Friend request already sent.";
         }
 
-        // Add sender's request to receiver's friendRequests
-        receiver.getFriendRequests().add(senderEmail);
+        // Create a new FriendRequest object
+        FriendRequest newRequest = new FriendRequest(senderEmail, receiverEmail, "PENDING");
+
+        // Add sender's friend request to receiver's list
+        receiver.getFriendRequests().add(newRequest);
+
+        // Save the updated receiver
         userRepository.save(receiver);
 
         return "Friend request sent.";
     }
 
 
+
+
+    public List<String> getFriends(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        return user.getFriends();
+    }
     public void acceptFriendRequest(String senderEmail, String receiverEmail) {
         User sender = userRepository.findByEmail(senderEmail);
         if (sender == null) {
@@ -64,28 +80,25 @@ public class FriendService {
             throw new IllegalArgumentException("Receiver not found");
         }
 
-        if (!receiver.getFriendRequests().contains(senderEmail)) {
-            throw new IllegalArgumentException("No friend request found");
-        }
+        // Find the friend request from sender to receiver
+        FriendRequest friendRequest = receiver.getFriendRequests().stream()
+                .filter(request -> request.getSenderEmail().equals(senderEmail))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No friend request found"));
 
+        // Change the status to ACCEPTED
+        friendRequest.setStatus("ACCEPTED");
 
-
-        // Remove the friend request and add each other as friends
-        receiver.getFriendRequests().remove(senderEmail);
+        // Add each other as friends
         receiver.getFriends().add(senderEmail);
         sender.getFriends().add(receiverEmail);
 
+        // Save the updated users
         userRepository.save(receiver);
         userRepository.save(sender);
     }
 
-    public List<String> getFriends(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new IllegalArgumentException("User not found");
-        }
-        return user.getFriends();
-    }
+
     public void rejectFriendRequest(String senderEmail, String receiverEmail) {
         User sender = userRepository.findByEmail(senderEmail);
         if (sender == null) {
@@ -97,21 +110,29 @@ public class FriendService {
             throw new IllegalArgumentException("Receiver not found");
         }
 
-        if (!receiver.getFriendRequests().contains(senderEmail)) {
-            throw new IllegalArgumentException("No friend request found");
-        }
+        // Find the friend request from sender to receiver
+        FriendRequest friendRequest = receiver.getFriendRequests().stream()
+                .filter(request -> request.getSenderEmail().equals(senderEmail))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No friend request found"));
 
-        // Remove the friend request without adding to friends
-        receiver.getFriendRequests().remove(senderEmail);
+        // Change the status to REJECTED
+        friendRequest.setStatus("REJECTED");
+
+        // Save the updated receiver (no changes to friends)
         userRepository.save(receiver);
     }
+
+
     public List<FriendRequestDto> getPendingFriendRequests(String receiverEmail) {
         List<FriendRequest> requests = friendRequestRepository.findByReceiverEmailAndStatus(receiverEmail, "PENDING");
         System.out.println("Fetched Requests: " + requests);  // Log the fetched requests
+
         return requests.stream()
                 .map(request -> new FriendRequestDto(request.getSenderEmail(), request.getReceiverEmail(), request.getStatus()))
                 .collect(Collectors.toList());
     }
+
     public List<FriendRequestDto> getAllFriendRequests(String receiverEmail) {
         // Find the user by email (receiverEmail)
         User receiver = userRepository.findByEmail(receiverEmail);
@@ -121,12 +142,32 @@ public class FriendService {
         }
 
         // Get the list of friend requests (sender emails)
-        List<String> friendRequests = receiver.getFriendRequests();
+        List<FriendRequest> friendRequests = receiver.getFriendRequests();
 
-        // Convert the list of sender emails to FriendRequestDto (or whatever structure you use)
+        // Convert the list of sender emails to FriendRequestDto
         return friendRequests.stream()
-                .map(senderEmail -> new FriendRequestDto(senderEmail, receiverEmail, "PENDING"))  // Assuming PENDING status for all
+                .map(request -> new FriendRequestDto(request.getSenderEmail(), request.getReceiverEmail(), request.getStatus())) // Use request status
                 .collect(Collectors.toList());
     }
+
+    public List<FriendRequestDto> getAllSentFriendRequests(String senderEmail) {
+        // Fetch the user by their email (sender)
+        User sender = userRepository.findByEmail(senderEmail);  // Assuming findByEmail method exists
+
+        // If no sender found, return empty list
+        if (sender == null) {
+            return new ArrayList<>();
+        }
+
+        // Filter the requests to find those sent by this sender
+        return sender.getSentRequests().stream()
+                .map(request -> new FriendRequestDto(
+                        request.getSenderEmail(),          // The sender is the current user
+                        request.getReceiverEmail(),        // The receiver is the target user
+                        request.getStatus()                // The actual status (PENDING, ACCEPTED, etc.)
+                ))
+                .collect(Collectors.toList());
+    }
+
 
 }

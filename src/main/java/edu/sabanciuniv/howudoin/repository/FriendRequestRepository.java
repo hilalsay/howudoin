@@ -8,5 +8,7 @@ import java.util.List;
 public interface FriendRequestRepository extends MongoRepository<FriendRequest, String> {
     List<FriendRequest> findByReceiverEmailAndStatus(String receiverEmail, String status);
     List<FriendRequest> findByReceiverEmail(String receiverEmail);
+
+    List<FriendRequest> findBySenderEmail(String senderEmail);
 }
 

@@ -14,13 +14,14 @@ public class User {
     private String password; // Store hashed password
     private String salt;
 
-    private List<String> friends; // List of accepted friend IDs
-    private List<String> friendRequests; // List of user IDs who sent friend requests
-
+    private List<String> friends; // List of accepted friend emails
+    private List<FriendRequest> friendRequests; // List of FriendRequest objects
+    private List<FriendRequest> sentRequests;
     // Default constructor
     public User() {
         this.friends = new ArrayList<>(); // Initialize as an empty list
         this.friendRequests = new ArrayList<>(); // Initialize as an empty list
+        this.sentRequests = new ArrayList<>();
     }
 
     // Parameterized constructor
@@ -32,6 +33,7 @@ public class User {
         this.password = password;
         this.salt = salt;
         this.friends = new ArrayList<>(); // Initialize as an empty list
+        this.sentRequests = new ArrayList<>();
         this.friendRequests = new ArrayList<>(); // Initialize as an empty list
     }
 
@@ -75,15 +77,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name and lastname ='" + name + " " + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 
     public String getSalt() {
         return salt;
@@ -103,12 +96,28 @@ public class User {
     }
 
     // Getter and Setter for friendRequests
-    public List<String> getFriendRequests() {
+    public List<FriendRequest> getFriendRequests() {
         return friendRequests;
     }
 
-    public void setFriendRequests(List<String> friendRequests) {
+    public void setFriendRequests(List<FriendRequest> friendRequests) {
         this.friendRequests = friendRequests;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name and lastname ='" + name + " " + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public List<FriendRequest> getSentRequests() {
+        return sentRequests;
+    }
+    public void setSentRequests(List<FriendRequest> friendRequests) {
+        this.sentRequests = friendRequests;
+    }
 }

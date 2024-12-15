@@ -12,6 +12,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -50,6 +51,11 @@ public class UserService {
         // Generate JWT token for the authenticated user
         return jwtTokenUtil.generateToken(user.getEmail());
     }
+
+    public List<User> searchUsers(String query) {
+        return userRepository.searchUsers(query); // Make sure query is passed correctly
+    }
+
 
 
     private String generateSalt() {

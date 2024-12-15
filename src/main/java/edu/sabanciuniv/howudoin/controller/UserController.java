@@ -60,6 +60,12 @@ public class UserController {
         // Return groups as the response
         return ResponseEntity.ok(userGroups);
     }
+    // In your UserController or a similar class
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsers(@RequestParam String query) {
+        List<User> users = userService.searchUsers(query);  // Implement this in your UserService
+        return ResponseEntity.ok(users);
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
